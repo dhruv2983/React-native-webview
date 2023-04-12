@@ -1,20 +1,51 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState } from 'react';
+import { View, ActivityIndicator, StyleSheet, SafeAreaView } from 'react-native';
+import WebView from 'react-native-webview';
 
-export default function App() {
+const MyWebView = () => {
+  const [loading, setLoading] = useState(true);
+
+  const handleLoadStart = () => {
+    setLoading(true);
+  };
+
+  const handleLoadEnd = () => {
+    setLoading(false);
+  };
+
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
+      <WebView
+        source={{ uri: 'https://teats.pythonanywhere.com' }}
+        style={styles.container}
+        onLoadStart={handleLoadStart}
+        onLoadEnd={handleLoadEnd}
+      />
+      {loading && (
+        <View style={styles.loadingContainer}>
+          <ActivityIndicator size="large" />
+        </View>
+      )}
+      <StatusBar hidden/>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
+  },
+  loadingContainer: {
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
     justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.3)', // adjust opacity to customize the loading overlay
   },
 });
+
+export default MyWebView;
