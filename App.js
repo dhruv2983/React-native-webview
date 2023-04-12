@@ -17,7 +17,7 @@ const MyWebView = () => {
   return (
     <View style={styles.container}>
       <WebView
-        source={{ uri: 'https://teats.pythonanywhere.com' }}
+        source={{ uri: 'https://www.example.com' }}
         style={styles.container}
         onLoadStart={handleLoadStart}
         onLoadEnd={handleLoadEnd}
